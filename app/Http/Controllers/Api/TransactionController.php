@@ -3,29 +3,44 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
-use App\Models\Wallet;
-use Illuminate\Http\Request;
+use App\Http\Services\TransactionService;
 use \App\Http\Requests\StoreTransactionRequest;
 
+/**
+ * Class TransactionController
+ *
+ * @package App\Http\Controllers\Api
+ *
+ * @author Aleksandr Gavva
+ */
 class TransactionController extends Controller
 {
     /**
-     * @param StoreTransactionRequest $request
-     * @return bool
+     * @var TransactionService
      */
-    public function store(StoreTransactionRequest $request): bool
+    private $transactionService;
+    /**
+     * TransactionController constructor.
+     */
+    public function __construct(TransactionService $transactionService)
     {
-        //TODO обернуть в транзакцию
-        $transaction = new Transaction();
-        $transaction->fill($request->validated());
-        /** @var Wallet $wallet */
-        $wallet = Wallet::findOrFail($transaction->wallet_id);
-        if ($transaction->currency_id !== $wallet->currecy_id) {
-            //TODO exchange
+        $this->transactionService = $transactionService;
+    }
+
+    /**
+     * @param StoreTransactionRequest $request
+     * @return array
+     */
+    public function store(StoreTransactionRequest $request): array
+    {
+        if (true === $result = $this->transactionService->save($request)) {
+            return [
+                'success' => $result
+            ];
         }
-        $transaction->save();
-        $wallet->getRealBalance();
-        return true;
+        return [
+            'success' => !$result,
+            'errors' => $result
+        ];
     }
 }

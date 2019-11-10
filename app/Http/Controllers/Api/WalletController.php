@@ -5,6 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Wallet;
 
+/**
+ * Class WalletController
+ *
+ * @package App\Http\Controllers\Api
+ *
+ * @author Aleksandr Gavva
+ */
 class WalletController extends Controller
 {
     /**
@@ -14,6 +21,9 @@ class WalletController extends Controller
     public function show($id): array
     {
         $wallet = Wallet::findOrFail($id);
-        return [$id => $wallet->balance];
+        return [
+            'balance' => $wallet->balance,
+            'currency' => $wallet->currency->code,
+        ];
     }
 }

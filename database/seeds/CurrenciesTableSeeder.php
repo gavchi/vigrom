@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use \App\Models\Currency;
+use \App\Models\Exchange;
 
 class CurrenciesTableSeeder extends Seeder
 {
@@ -14,6 +15,6 @@ class CurrenciesTableSeeder extends Seeder
     {
         Currency::create(['code' => 'RUB']);
         Currency::create(['code' => 'USD']);
-        Currency::create(['code' => 'EUR']);
+        factory(Exchange::class, 50)->create();
     }
 }
