@@ -1,6 +1,6 @@
 # Тестовое задание Vigrom corp.
 
-###Требования
+##Требования
 * Apache or nginx
 * php 7.2.0 +
 * mysql 5.6 +
@@ -39,6 +39,8 @@ DB_PASSWORD=
 Баланс кошелька
 ``` http
 GET /api/wallet/{id}
+```
+```
 {id} - целочисельный идентификатор кошелька
 ```
 
@@ -47,7 +49,8 @@ GET /api/wallet/{id}
 Создание транзакции
 ``` http
 POST /api/transaction
-
+```
+```
 Передаваемые параметры:
 wallet_id (int) - идентификатор кошелька
 currency_id (int) - идентификатор валюты
