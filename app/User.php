@@ -5,7 +5,17 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Wallet;
 
+/**
+ * Class User
+ *
+ * @package App
+ *
+ * @property Wallet $wallet
+ *
+ * @author Aleksandr Gavva
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -36,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function wallet()
+    {
+        return $this->hasOne('App\Models\Wallet');
+    }
 }

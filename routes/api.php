@@ -16,3 +16,14 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::namespace('Api')->group(function () {
+    Route::resource('/wallet', 'WalletController')->only([
+        'show'
+    ]);
+    Route::resource('/transaction', 'TransactionController')->only([
+        'store'
+    ]);
+//    Route::get('/wallet/{id}', 'WalletController@show');
+//    Route::post('/wallet/{id}', 'WalletController@update');
+});
